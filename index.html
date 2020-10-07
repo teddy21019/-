@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="app.js"></script>
     <title>數學白痴計算機</title>
 </head>
+
 <body>
     <div id="app">
         <div id="control-section">
@@ -14,7 +18,7 @@
         </div>
         <div id="www">
             <div id="stack-container">
-                <div v-for="item in itemStack">
+                <div class="price-stack-items" v-for="item in itemStack">
                     <div class="price-stack">
                         {{item}}
                     </div>
@@ -22,89 +26,33 @@
             </div>
             <div id="button-container">
                 <div v-for="price in priceList">
-                    <button @click="add(price)">{{price}}</button>
+                    <button class="button-price" @click="add(price)">{{price}}</button>
                 </div>
             </div>
         </div>
-        <h1>{{total}}</h1>
+        <div id="footer">
+            <div id="total-block">
+                <span>總價</span>
+                <h1>{{total}}</h1>
+
+            </div>
+            <div id="least-calc">
+                <div id="leastPrice">
+                    <span>低消</span>
+                    <h1 :class="{'not-enough': notEnough}">{{leastPrice}}</h1>
+                </div>
+                <div id="customer-quantity-section">
+                    <div id="minus"><span @click="quantityChange(-1)">-</span></div>
+                    <div id="quantity"><span>{{customerQauntity}}</span></div>
+                    <div id="add"><span @click="quantityChange(1)">+</span></div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
-    
+
 </body>
+
 </html>
 
-<script>
-
-    let app =  new Vue({
-        el:"#app",
-        data:{
-            priceList : [20,150,200,250,300,400,500],
-            itemStack : []
-        },
-        methods:{
-            add(price){
-                this.itemStack.push(price);
-            },
-            clear(){
-                this.itemStack=[];
-            },
-            back(){
-                this.itemStack.pop();
-            }
-        },
-        computed:{
-            total(){
-                if(this.itemStack.length !=0){
-                    return this.itemStack.reduce((a,c)=>a+c);
-                }else{
-                    return 0;
-                }
-            }
-        }
-
-    });
-</script>
-
-<style>
-    html,body{
-        height:100%;
-    }
-    button{
-        width: 300px;
-        height: 60px;
-        background-color: rgb(65, 65, 65);
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin:3px;
-    }
-    #control-section{
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        margin-bottom: 20px;
-    }
-
-    #app{
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-    }
-    #www{
-        display: grid;
-        grid-template-columns: 10% auto;
-        
-    }
-
-    .control{
-        width: 100px;
-        height: 50px;
-        padding: 0px;
-        background-color: silver;
-        color:rgb(65, 65, 65);
-    }
-</style>
