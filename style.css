@@ -19,7 +19,6 @@ button{
     transition: 0.2s;
 }
 .button-price:hover{
-    width: 330px;
     font-size: 25px;
 }
 
