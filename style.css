@@ -72,6 +72,12 @@ button{
     margin-right: 10%;
 }
 
+#price-diff{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
 #customer-quantity-section{
     display: grid;
     height:40px;

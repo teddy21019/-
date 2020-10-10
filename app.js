@@ -37,40 +37,72 @@ let app = new Vue({
         leastPrice() {
             return this.customerQauntity * 150;
         },
+        priceDiff() {
+            let diff = this.total - this.leastPrice;
+            return diff < 0 ? diff : '';
+        },
         notEnough() {
             return this.total < this.leastPrice;
         },
-        itemStackToRender(){
+        itemStackToRender() {
             //itemStack records the history of input
             //but the one to render should gather the prices of rices
 
             let priceOfRice = this.priceList[0];
 
             let [...stack] = this.itemStack; //copy
-            let {reducedStack} = stack.reduce((state, item)=>{
+            let { reducedStack: reducedRice } = stack.reduce((state, item) => {
 
-                let {...newState} = state;
-                if(item != priceOfRice){
+                let { ...newState } = state;
+                if (item != priceOfRice) {
                     //not rice, then push to reduced Stack
                     newState.reducedStack.push(item);
-                }else{
+                } else {
                     //is rice, first check if 20 already exist
-                    if(state.indexOfRice == null){
+                    if (state.indexOfRice == null) {
                         newState.indexOfRice = state.reducedStack.length;
                         newState.reducedStack.push(priceOfRice);
-                    }else{
+                    } else {
                         //is rice, and showed before
-                        newState.reducedStack[state.indexOfRice]+=20;
+                        newState.reducedStack[state.indexOfRice] += priceOfRice;
                     }
                 }
 
                 return newState;
-            },{
-                reducedStack:[],
-                indexOfRice:null,
+            }, {
+                reducedStack: [],
+                indexOfRice: null,
 
             })
-            return reducedStack;
+
+            //next for each same price that repeated over 5 times, add a bar
+
+            let {reducedStack: reducedRepeat} = reducedRice.reduce((state, item)=>{
+
+                state.reducedStack.push(item);
+                if (state.repeatedPrice == null){
+                    //first item
+                    state.repeatedPrice = item;
+                }else{
+                    if(item == state.repeatedPrice){
+                        state.repeatedTime+=1;
+                        if((state.repeatedTime >= 5) && (state.repeatedTime % 5 ==0)){
+                            state.reducedStack.push('-');
+                        }
+                    }else{
+                        state.repeatedPrice = item;
+                        state.repeatedTime = 1;
+                    }
+                }
+
+                return state;
+            },{
+                reducedStack:[],
+                repeatedPrice:null,
+                repeatedTime:1
+            })
+
+            return reducedRepeat;
         }
     }
 
