@@ -49,6 +49,10 @@ button{
     
 }
 
+#button-container{
+ overflow-y: scroll;
+}
+
 .control{
     width: 100px;
     height: 50px;
