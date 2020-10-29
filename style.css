@@ -51,6 +51,7 @@ button{
 
 #button-container{
  overflow-y: scroll;
+ height: 80%
 }
 
 .control{
