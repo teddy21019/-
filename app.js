@@ -1,7 +1,7 @@
 let app = new Vue({
     el: "#app",
     data: {
-        priceList: [20, 150, 200, 250, 300, 400, 500],
+        priceList: [20, 150, 200, 250, 300, 400,450, 500],
         itemStack: [],
         customerQauntity: 0,
     },
