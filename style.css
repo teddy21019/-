@@ -1,5 +1,10 @@
+*{
+   box-sizing: boarder-box;
+}
+
 html,body{
     height:100%;
+ 
 }
 button{
     width: 300px;
